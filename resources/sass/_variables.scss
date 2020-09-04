@@ -1,6 +1,17 @@
 @import "~materialize-css/sass/components/color-variables";
 
+// Colors
 $primary-color: #546E7A;
-$secondary-color: #FFEE58;
+$secondary-color: #ffee58;
 
+// Buttons
 $button-raised-color: #232327 !important;
+.btn.btn-flat {
+    color: $secondary-color !important;
+}
+.btn.btn-flat:hover {
+    background-color: $primary-color !important;
+}
+
+// Card stles
+$card-bg-color: #37474F !default;

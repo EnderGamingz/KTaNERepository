@@ -14,11 +14,21 @@ body, html {
     color: $text-color;
 }
 
+// Input / Form-fields
+input {
+    color: white;
+}
+[type=checkbox].filled-in:checked + span:not(.lever):before {
+    border-bottom-color: #232327 !important;
+    border-right-color: #232327 !important;
+}
+
+// Navbar
+
 nav ul a {
     color: $text-color !important;
     font-size: 1.2rem !important;
 }
-
 .brand-logo {
     margin-left: 10px;
     color: $text-color !important;

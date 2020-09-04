@@ -1,2 +1,2 @@
-# Keep Taling and Nobody Explodes Repository
+# Keep Talking and Nobody Explodes Repository
 A Repository Manager for KTaNE (Keep Taling and Nobody Explodes) modules.

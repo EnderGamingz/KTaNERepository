@@ -29,7 +29,7 @@
                     </li>
                     @guest
                     <li>
-                        <a class="btn" href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">Login</a>
                     </li>
                     <li>
                         <a href="{{ route('register') }}">Sign Up</a>
