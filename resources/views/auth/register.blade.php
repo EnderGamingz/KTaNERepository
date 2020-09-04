@@ -14,7 +14,7 @@
                         <div class="input-field">
                             <label for="username">{{ __('Username') }}</label>
                             
-                            <input id="username" type="text" name="username" value="{{ old('name') }}" required autocomplete="username" autofocus>
+                            <input id="username" type="text" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
                             
                             @error('username')
                             <span class="helper-text red-text">

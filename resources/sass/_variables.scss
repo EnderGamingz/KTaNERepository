@@ -3,6 +3,7 @@
 // Colors
 $primary-color: #546E7A;
 $secondary-color: #ffee58;
+$text-color: #eee; 
 
 // Buttons
 $button-raised-color: #232327 !important;
@@ -12,6 +13,10 @@ $button-raised-color: #232327 !important;
 .btn.btn-flat:hover {
     background-color: $primary-color !important;
 }
+
+$dropdown-bg-color: #37474F !default;
+$dropdown-hover-bg-color: darken($dropdown-bg-color, 10%) !default;
+$dropdown-color: $text-color !default;
 
 // Card stles
 $card-bg-color: #37474F !default;

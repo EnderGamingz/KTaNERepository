@@ -36,19 +36,20 @@
                     </li>
                     @else
                     <li>
-                        <button class="btn dropdown-trigger" data-target="dropdown-user-desktop" href="#">{{ Auth::user()->username }}</button>
-                        <ul id="dropdown-user-desktop" class="dropdown">
+                        <button class="btn dropdown-trigger" data-target="dropdown-user-desktop">{{ Auth::user()->username }}</button>
+                         <ul id="dropdown-user-desktop" class="dropdown-content">
                             {{-- Logout --}}
                             <li>                                   
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
                             </li>
                         </ul>
                     </li>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                     @endif
                 </ul>
             </div>
