@@ -1,1 +1,25 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~materialize-css/sass/materialize';
+
+$text-color: #eee; 
+
+body, html {
+    background-color: #223344 !important;
+    color: $text-color;
+}
+
+nav ul a {
+    color: $text-color !important;
+    font-size: 1.2rem !important;
+}
+
+.brand-logo {
+    margin-left: 10px;
+    color: $text-color !important;
+}
