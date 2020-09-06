@@ -59,6 +59,8 @@ class UserController extends Controller
             $user->permissions()->delete();
         }
 
+        Cache::tag('users')->flush();
+
         return redirect()->route('admin.users.show', $user);
     }
 }

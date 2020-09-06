@@ -32,6 +32,8 @@ class RoleController extends Controller
             $role->permissions()->sync($request->permissions);
         }
 
+        Cache::forget('roles');
+
         return redirect()->route('admin.roles.show', $role);
     }
 
@@ -70,6 +72,8 @@ class RoleController extends Controller
             // Sync the fetched permissions with role
             $role->permissions()->sync($request->permissions);
         }
+
+        Cache::forget('roles');
 
         return redirect()->route('admin.roles.show', $role);
     }

@@ -45,8 +45,13 @@ class PermissionController extends Controller
             return;
         }
 
+        // Calling the 'permission:init' command
         Artisan::call('permission:init');
+        // Collecting the output of the command
         $out = Artisan::output();
+
+        // NOTE: There is no need to flush the cache, because the command already does it
+
         return redirect()->route('admin.permissions.index')->with(['syncComplete' => $out]);
     }
 

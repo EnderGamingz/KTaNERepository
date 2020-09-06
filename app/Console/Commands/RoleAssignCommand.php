@@ -66,6 +66,8 @@ class RoleAssignCommand extends Command
         $user->roles()->attach($role);
         $this->info('Role has been successfully attached');
 
+        Cache::flush();
+
         return 0;
     }
 }
