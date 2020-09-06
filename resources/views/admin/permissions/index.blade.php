@@ -20,13 +20,19 @@
                             <span class="card-title mb-0">@lang('permissions.title')</span>
                         </div>
                         <div class="col m2 right-align">
+                            @can('sync.admin.permissions')
                             <form action="{{ route('admin.permissions.sync') }}" method="POST">
                                 @csrf
                                 @method('PATCH')
                                 <button class="btn btn-floating tooltipped" data-tooltip="Sync"><i class="material-icons">sync</i></button>
                             </form>
+                            @endif
                         </div>
                     </div>
+                    @if(session()->has('syncComplete'))
+                        <h6>Sync Complete</h6>
+                        <pre>{{ session()->get('syncComplete') }}</pre>
+                    @endif
                     <h6>Permission List</h6>
                     <ul class="collection">
                         @foreach ($permissions as $permission)
@@ -36,7 +42,6 @@
                         </li>
                         @endforeach
                     </ul>
-
                 </div>
             </div>
         </div>
@@ -44,6 +49,7 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">@lang('permissions.roles')</span>
+                    @can('create.admin.roles')
                     <h6>Role Creation</h6>
                     <form action="{{ route('admin.roles.store') }}" method="POST">
                         @csrf
@@ -69,13 +75,13 @@
                             </div>
                             <div class="col s12 m8 input-field">
       
-                                <select name="permissions" id="role_permissions" multiple>
+                                <select name="permissions[]" id="role_permissions" multiple>
                                     @foreach ($permissions as $permission)
                                         <option value="{{ $permission->id }}">{{ $permission->name }}</option>
                                     @endforeach
                                 </select>
                                 <label for="role_permissions">Permissions</label>
-                                @error('description')
+                                @error('permissions')
                                     <div class="helper-text red-text">
                                         {{ $message }}
                                     </div>
@@ -86,24 +92,26 @@
                             </div>
                         </div>
                     </form>
+                    @endif
+
                     <h6>Role List</h6>
-                    @foreach ($roles as $role)
-                        <ul class="collection">
-                            @foreach ($roles as $role)
-                                <li class="collection-item">
-                                    <div class="row valign-wrapper mb-0">
-                                        <div class="col s12 m8">
-                                            <b>{{ $role->name }}</b> <br>
-                                            {{ $role->description }}
-                                        </div>
-                                        <div class="col s12 m4 right-align">
-                                            <a href="{{ route('admin.roles.show', $role)}}" class="btn btn-flat"><i class="material-icons">keyboard_arrow_right</i></a>
-                                        </div>
+                    <ul class="collection">
+                        @foreach ($roles as $role)
+                            <li class="collection-item">
+                                <div class="row valign-wrapper mb-0">
+                                    <div class="col s12 m8">
+                                        <b>{{ $role->name }}</b> <br>
+                                        {{ $role->description }}
                                     </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endforeach
+                                    <div class="col s12 m4 right-align">
+                                        @can('show.admin.roles')
+                                        <a href="{{ route('admin.roles.show', $role)}}" class="btn btn-flat"><i class="material-icons">keyboard_arrow_right</i></a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

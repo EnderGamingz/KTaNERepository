@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap');
 
 // Variables
 @import 'variables';
@@ -36,4 +36,11 @@ nav ul a {
 }
 .brand-logo {
     color: $text-color !important;
+}
+
+// Pre Element
+pre {
+    background-color: $button-color;
+    padding: 5px;
+    overflow-x: scroll;
 }

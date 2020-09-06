@@ -75,6 +75,11 @@ class User extends Authenticatable
      */
     public function hasPermission($permission)
     {
+        // Check if the permission variable has a value
+        if(!$permission) {
+            return true;
+        }
+
         // Get the users tag from cache
         $tag = Cache::tags(["users"]);
         $permissions = null;
@@ -91,7 +96,7 @@ class User extends Authenticatable
                 return $permissions;
             });
         }
-        
+
         // Check if the user has the permission 
         return $permissions->contains("name", $permission);
     }

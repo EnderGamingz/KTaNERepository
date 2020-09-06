@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 use App\Permission;
 use App\Role;
+use Artisan;
 
 class PermissionController extends Controller
 {
+
+    /**
+     * Shows the index view of the permission manager
+     * @param request HTTP Request
+     */
     public function index(Request $request)
     {
         // Checks if the user has the right permissions
@@ -25,6 +31,23 @@ class PermissionController extends Controller
         $roles = Role::all();
 
         return view('admin.permissions.index', ['roles' => $roles, 'permissions' => $permissions]);
+    }
+
+    /**
+     * Syncs up the permissions defined in the configuration file ('config/permission.php') using the 'permissions:init' command
+     * @param request HTTP Request
+     */
+    public function sync(Request $request)
+    {
+        // Checks if the user has the right permissions
+        if(!$request->user()->hasPermission('sync.admin.permissions')) {
+            abort(402);
+            return;
+        }
+
+        Artisan::call('permission:init');
+        $out = Artisan::output();
+        return redirect()->route('admin.permissions.index')->with(['syncComplete' => $out]);
     }
 
 
