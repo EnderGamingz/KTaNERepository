@@ -16,6 +16,10 @@ body, html {
     color: $text-color;
 }
 
+div.divider {
+    background-color: rgba(160, 160, 160, 1);
+}
+
 // Input / Form-fields
 input {
     color: white;

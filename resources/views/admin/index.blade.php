@@ -12,7 +12,7 @@
                     List, Update and Delete Users
                 </div>
                 <div class="card-action">
-                    <a href="" class="btn btn-flat">Manage Users</a>
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-flat">Manage Users</a>
                 </div>
             </div>
         </div>  

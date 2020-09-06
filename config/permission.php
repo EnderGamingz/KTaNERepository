@@ -7,6 +7,7 @@ return [
     'permissions' => [
         'view.admin.dashboard' => 'Allows to visit the admin dashboard',
         'view.admin.users' => 'Allows to list all users',
+        'show.admin.users' => 'Allows to show users in detail',
         'view.admin.modules' => 'Allows to list all modules',
         'view.admin.permissions' => 'Allows to list all permissions and roles',
         'show.admin.roles' => 'Allows to show roles in detail',

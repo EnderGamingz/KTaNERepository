@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 
 use App\Permission;
+use App\Role;
 use Cache;
 
 class AuthServiceProvider extends ServiceProvider
@@ -43,6 +44,12 @@ class AuthServiceProvider extends ServiceProvider
             Gate::define($permission->name, function($user) use($permission) {
                 return $user->hasPermission($permission->name);
             }); 
+        }
+
+        if(!Cache::has('roles')) {
+            Cache::remember('roles', 60*10, function() {
+                return Role::all();
+            });
         }
 
         $this->registerPolicies();
