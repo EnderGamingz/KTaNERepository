@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Module;
+use App\Tag;
 use App\Http\Requests\ModuleRequest;
 class ModuleController extends Controller
 {
