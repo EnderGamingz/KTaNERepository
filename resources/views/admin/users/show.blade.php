@@ -44,12 +44,13 @@
                         @endforelse
                     </ul>
                 </div>
+                @can('permissions.admin.users')
                 <div class="divider"></div>
                 <ul class="collapsible">
                     <li>
                         <div class="collapsible-header"><i class="material-icons">keyboard_arrow_down</i> Update</div>
                         <div class="collapsible-body">
-                            <form action="{{ route('admin.users.update', $user) }}" method="POST">
+                            <form action="{{ route('admin.users.permissions', $user) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
                                 <div class="input-field">
@@ -79,6 +80,7 @@
                         </div>
                     </li>
                 </ul>
+                @endcan
             </div>
         </div>
     </div>

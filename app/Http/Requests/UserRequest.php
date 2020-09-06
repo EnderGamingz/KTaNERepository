@@ -21,6 +21,9 @@ class UserRequest extends FormRequest
             case 'admin.users.show':
                 $permission = 'show.admin.users';
                 break;
+            case 'admin.users.permissions':
+                $permission = 'permissions.admin.users';
+                break;
         }
 
         return $this->user()->hasPermission($permission);
@@ -33,6 +36,16 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        switch($this->route()->getName()) {
+            case 'admin.users.permissions':
+                return [
+                    'permissions' => 'nullable|array',
+                    'permissions.*' => 'required|integer|exists:permissions,id',
+                    'roles' => 'nullable|array',
+                    'roles.*' => 'required|integer|exists:roles,id',
+                ];
+            default:
+                return [];
+        }
     }
 }
