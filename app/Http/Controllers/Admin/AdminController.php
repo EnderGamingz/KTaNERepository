@@ -14,6 +14,7 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        // Checks if the user has the right permissions
         if(!$request->user()->hasPermission('view.admin.dashboard')) {
             abort(402);
             return;

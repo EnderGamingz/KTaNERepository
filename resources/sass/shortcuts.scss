@@ -1,0 +1,19 @@
+@for $i from 0 to 5 {
+
+    .mr-#{$i} {
+        margin-right: #{$i * 10}px !important;
+    }
+    .ml-#{$i} {
+        margin-left: #{$i * 10}px !important;
+    }
+    .mb-#{$i} {
+        margin-bottom: #{$i * 10}px !important;
+    }
+    .mt-#{$i} {
+        margin-top: #{$i * 10}px !important;
+    }
+}
+
+.m-a {
+    margin: auto;
+}

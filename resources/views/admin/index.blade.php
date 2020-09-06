@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Admin Pannel</h1>
+    <h1>@lang('admin.title')</h1>
     <div class="row">
         @can('view.admin.users')
         <div class="col m6 s12 l6 xl4">
@@ -34,11 +34,11 @@
         <div class="col m6 s12 l6 xl4">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title">Permission Manager</span>
-                    Create, Update and Delete Permissions and Roles
+                    <span class="card-title">@lang('permissions.title')</span>
+                    @lang('permissions.description')
                 </div>
                 <div class="card-action">
-                    <a href="" class="btn btn-flat truncate">Manage Permissions</a>
+                    <a href="{{ route('admin.permissions.index') }}" class="btn btn-flat truncate">Manage Permissions</a>
                 </div>
             </div>
         </div>  
