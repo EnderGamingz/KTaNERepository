@@ -8,3 +8,5 @@ Route::resource('roles', 'RoleController')->only(['show', 'store', 'update']);
 
 Route::patch('users/{user}/permissions', 'UserController@permissions')->name('users.permissions');
 Route::resource('users', 'UserController');
+
+Route::resource('modules', 'ModuleController');

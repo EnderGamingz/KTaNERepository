@@ -25,7 +25,7 @@
                     Create, Update and Delete Modules
                 </div>
                 <div class="card-action">
-                    <a href="" class="btn btn-flat">Manage Modules</a>
+                    <a href="{{ route('admin.modules.index') }}" class="btn btn-flat">Manage Modules</a>
                 </div>
             </div>
         </div>  
