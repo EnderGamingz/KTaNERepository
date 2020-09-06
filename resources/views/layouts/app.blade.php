@@ -40,10 +40,15 @@
                          <ul id="dropdown-user-desktop" class="dropdown-content">
                             {{-- Logout --}}
                             <li>                                   
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
                             </li>
+                            @can('view.admin.dashboard')
+                            <li>
+                                <a href="{{ route('admin.index') }}">Admin Panel</a>
+                            </li>
+                            @endcan
                         </ul>
                     </li>
 

@@ -41,7 +41,7 @@ class AuthServiceProvider extends ServiceProvider
         // Iterate over the collected permissions and define seperate gates
         foreach($permissions as $permission) {
             Gate::define($permission->name, function($user) use($permission) {
-                return $use->hasPermission($permission->name);
+                return $user->hasPermission($permission->name);
             }); 
         }
 
