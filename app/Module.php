@@ -26,7 +26,7 @@ class Module extends Model
      */
     public function tags()
     {
-        return $this->belongsTo(Tag::class, 'module_tag');
+        return $this->belongsToMany(Tag::class, 'module_tag');
     }
 
     /**

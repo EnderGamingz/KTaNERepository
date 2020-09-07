@@ -22,6 +22,8 @@ class CreateModulesTable extends Migration
             $table->json('credits')->nullable();
             $table->integer('expert_difficulty');
             $table->integer('defuser_difficulty');
+            $table->boolean('public')->default(false);
+            $table->boolean('approved')->default(false);
             $table->timestamps();
 
             $table->foreign('publisher_id')
