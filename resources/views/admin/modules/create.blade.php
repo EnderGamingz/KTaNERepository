@@ -14,11 +14,3 @@
     <create-module url="{{ route('admin.modules.store') }}" tag_url="{{ route('api.tags.index') }}"></create-module>
 </div>
 @endsection
-
-@section('scripts')
-    <script>
-        $('#name').on('input', (e) => {
-            
-        });
-    </script>
-@endsection

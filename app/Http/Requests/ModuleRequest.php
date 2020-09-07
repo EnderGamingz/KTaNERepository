@@ -44,6 +44,8 @@ class ModuleRequest extends FormRequest
                     'metadata.*' => 'string',
                     'tags' => 'nullable|array',
                     'tags.*' => 'string|max:50',
+                    'links' => 'nullable|array',
+                    'links.*' => 'url',
                 ];
             default: 
                 return [

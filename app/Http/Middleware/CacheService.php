@@ -6,6 +6,7 @@ use Closure;
 use App\Permission;
 use App\Role;
 use App\Tag;
+use App\Module;
 use Cache;
 
 class CacheService
@@ -27,6 +28,9 @@ class CacheService
         
         if(!Cache::has('tags'))
             Cache::remember('tags', 60*10, function() { return Tag::all(); });
+
+        if(!Cache::has('modules'))
+            Cache::remember('modules', 60*10, function() { return Module::all(); });
 
         return $next($request);
     }

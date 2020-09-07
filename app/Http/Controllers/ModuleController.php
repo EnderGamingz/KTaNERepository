@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ModuleRequest;
 use App\Module;
+use App\ModuleLink;
+use App\Tag;
+use App\ModuleMetadata;
 use Cache;
 
 class ModuleController extends Controller
@@ -61,6 +64,34 @@ class ModuleController extends Controller
                 $module->tags()->attach($existingTags);
             }
 
+        }
+
+        if($request->has('links')) {
+            $links = [];
+            foreach ($request->links as $linkType => $url) {
+                $link = new ModuleLink([
+                    'module_id' => $module->id,
+                    'name' => $linkType,
+                    'link' => $url,
+                ]);
+                array_push($links, $link);
+            }
+
+            ModuleLink::insert($links);
+        }
+
+        if($request->has('metadata')) {
+            $metadata = [];
+            foreach ($request->metadta as $key => $value) {
+                $m = new ModuleMetadata([
+                    'module_id' => $module->id,
+                    'key' => $key,
+                    'value' => $value
+                ]);
+                array_push($metadata, $m);
+            }
+
+            ModuleMetadata::insert($metadata);
         }
 
         Cache::clear('modules');
