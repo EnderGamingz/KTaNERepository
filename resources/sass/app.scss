@@ -22,11 +22,21 @@ div.divider {
 
 // Input / Form-fields
 input {
-    color: white;
+    color: $text-color;
 }
 [type=checkbox].filled-in:checked + span:not(.lever):before {
     border-bottom-color: #232327 !important;
     border-right-color: #232327 !important;
+}
+textarea {
+    color: $text-color;
+}
+input[type=text]:not(.browser-default)[readonly=readonly] {
+    color: darken($text-color, 5%);
+    border-bottom: 1px dotted darken($text-color, 10%);
+}
+input[type=text]:not(.browser-default)[readonly=readonly] + label {
+    color: darken($text-color, 5%);
 }
 
 // Navbar

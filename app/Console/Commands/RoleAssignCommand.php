@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 
 use App\User;
 use App\Role;
+use Cache;
 
 class RoleAssignCommand extends Command
 {
