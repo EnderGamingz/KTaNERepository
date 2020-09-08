@@ -32,7 +32,7 @@ class CacheService
         if(!Cache::has('modules')) {
             Cache::remember('modules', 60*10, function() { 
 
-                return Module::with(['maintainer', 'tags', 'links', 'manuals', 'publisher'])->get(); 
+                return Module::with(['maintainer', 'tags', 'links', 'manuals', 'publisher', 'capabilities'])->get(); 
             });
         }
 

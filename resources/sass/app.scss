@@ -67,3 +67,20 @@ pre {
     height: 20px;
     left: -5px;
 }
+
+// Modal
+.modal {
+    background-color: $card-bg-color;
+}
+.modal.large {
+    height: 50%;
+}
+
+.modal .modal-content {
+    padding-bottom: 56px;
+}
+.modal .modal-footer {
+    background-color: #303d44;
+    position: absolute;
+    bottom: 0;
+}

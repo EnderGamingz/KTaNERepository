@@ -8,6 +8,7 @@ use App\Module;
 use App\ModuleLink;
 use App\Tag;
 use App\ModuleMetadata;
+use App\ModuleCapability;
 use Cache;
 use Auth;
 
@@ -115,5 +116,42 @@ class ModuleController extends Controller
             return;
         }
         return view('modules.show', ['module' => $module]);
+    }
+
+    public function update($module, ModuleRequest $request)
+    {
+        $module = Cache::get('modules')->where('uid', $module)->first();
+        if(!$module) {
+            abort(404);
+            return;
+        }
+
+        if(!Auth::check() || !Auth::check('update', $module)) {
+            return;
+        }
+
+        switch($request->update_scope) {
+            case 'capability':
+                return $this->updateCapability($module, $request);
+            default:
+                return response()->json(['message' => 'No suitable update scope'], 403);
+        }
+    }
+
+    public function updateCapability(Module $module, ModuleRequest $request)
+    {
+        if($module->capabilities->contains('name', $request->type)) {
+            return response()->json(['message' => 'Capability already exists'], 403);
+        }
+
+        ModuleCapability::create([
+            'module_id' => $module->id,
+            'name' => $request->type,
+            'data' => json_decode($request->data)
+        ]);
+
+        Cache::clear('modules');
+
+        return response()->json(202);
     }
 }

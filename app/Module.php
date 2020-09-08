@@ -42,7 +42,7 @@ class Module extends Model
      */
     public function capabilities()
     {
-        return $this->hasMany(ModuleCapabilities::class);
+        return $this->hasMany(ModuleCapability::class);
     }
 
     /**

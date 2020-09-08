@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
+use Auth;
 class ModuleRequest extends FormRequest
 {
     /**
@@ -18,6 +19,10 @@ class ModuleRequest extends FormRequest
             case 'admin.modules.index':
                 $permission = 'view.admin.modules';
                 break;
+            // NOTE: This will not fully authorize the request due to the fact we are using a 
+            // policy to check if the user has access to it which will happen in the controller.
+            case 'modules.update':
+                return $this->user() && $this->update_scope;
         }
 
         return $this->user()->hasPermission($permission);
@@ -47,6 +52,13 @@ class ModuleRequest extends FormRequest
                     'links' => 'nullable|array',
                     'links.*' => 'url',
                 ];
+            case 'modules.update':
+                if($this->update_scope == 'capability') {
+                    return [
+                        'type' => ['required', 'string', 'max:50', Rule::in(['mystery'])],
+                        'data' => 'required|json',
+                    ];
+                }
             default: 
                 return [
                     //
