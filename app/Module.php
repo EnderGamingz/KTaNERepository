@@ -68,4 +68,26 @@ class Module extends Model
     {
         return $this->hasMany(ModuleManual::class);
     }
+
+    /**
+     * @return QueryBuilder for the assigned publisher
+     */
+    public function publisher()
+    {
+        return $this->belongsTo(User::class, 'publisher_id');
+    }
+
+    public function difficultyToString($difficulty)
+    {
+        if($difficulty <= 20)
+            return 'Very Easy';
+        if($difficulty <= 40)
+            return 'Easy';
+        if($difficulty <= 60)
+            return 'Medium';
+        if($difficulty <= 80)
+            return 'Hard';
+        if($difficulty <= 100)
+            return 'Very Hard';
+    }
 }

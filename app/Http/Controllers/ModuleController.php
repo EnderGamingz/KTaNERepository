@@ -56,25 +56,26 @@ class ModuleController extends Controller
 
             $module->tags()->sync($existingTags);
 
-            foreach ($creatingTags as $tagName) {
-                $tag = Tag::create([
-                    'name' => $tagName
-                ]);
+            if($creatingTags->count() > 0) {
+                foreach ($creatingTags as $tagName) {
+                    $tag = Tag::create([
+                        'name' => $tagName
+                    ]);
 
-                $module->tags()->attach($existingTags);
+                    $module->tags()->attach($existingTags);
+                }
+                Cache::clear('tags');
             }
-
         }
 
         if($request->has('links')) {
             $links = [];
             foreach ($request->links as $linkType => $url) {
-                $link = new ModuleLink([
+                array_push($links, [
                     'module_id' => $module->id,
                     'name' => $linkType,
                     'link' => $url,
                 ]);
-                array_push($links, $link);
             }
 
             ModuleLink::insert($links);
@@ -82,13 +83,12 @@ class ModuleController extends Controller
 
         if($request->has('metadata')) {
             $metadata = [];
-            foreach ($request->metadta as $key => $value) {
-                $m = new ModuleMetadata([
+            foreach ($request->metadata as $key => $value) {
+                array_push($metadata, [
                     'module_id' => $module->id,
                     'key' => $key,
                     'value' => $value
                 ]);
-                array_push($metadata, $m);
             }
 
             ModuleMetadata::insert($metadata);
@@ -97,5 +97,11 @@ class ModuleController extends Controller
         Cache::clear('modules');
 
         return response()->json($module);
+    }
+
+    public function show($module, Request $request)
+    {
+        $module = Module::where('uid', $module)->firstOrFail();
+        return view('modules.show', ['module' => $module]);
     }
 }

@@ -29,8 +29,12 @@ class CacheService
         if(!Cache::has('tags'))
             Cache::remember('tags', 60*10, function() { return Tag::all(); });
 
-        if(!Cache::has('modules'))
-            Cache::remember('modules', 60*10, function() { return Module::all(); });
+        if(!Cache::has('modules')) {
+            Cache::remember('modules', 60*10, function() { 
+
+                return Module::with(['maintainer', 'tags', 'links', 'manuals'])->get(); 
+            });
+        }
 
         return $next($request);
     }
