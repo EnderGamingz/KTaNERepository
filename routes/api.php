@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('tags/', 'TagController@index')->name('tags.index');
+
+Route::apiResource('modules', 'ModuleController');

@@ -9,7 +9,7 @@
                 <div class="card-content">
                     <div class="row valing-wrapper">
                         <div class="col m8 mb-0">
-                            <span class="card-title mb-0">@lang('dashboard.modules')</span>
+                            <span class="card-title mb-0">@lang('dashboard.modules') ({{ $modules->count() }})</span>
                         </div>
                         <div class="col m4 right-align">
                             <a class="btn btn-flat waves-effect" href="{{ route('modules.create') }}">@lang('modules.submit_new')</a>

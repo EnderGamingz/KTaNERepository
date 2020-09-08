@@ -9,6 +9,7 @@ use App\ModuleLink;
 use App\Tag;
 use App\ModuleMetadata;
 use Cache;
+use Auth;
 
 class ModuleController extends Controller
 {
@@ -20,16 +21,23 @@ class ModuleController extends Controller
     */
     public function __construct()
     {
-        $this->middleware('auth');
     }
     
     public function create()
     {
+        if(!Auth::check()) {
+            return;
+        }
+
         return view('modules.create');
     }
 
     public function store(ModuleRequest $request)
     {
+        if(!Auth::check()) {
+            return;
+        }
+
         $uid = null;
         $tries = 0;
         
@@ -101,7 +109,11 @@ class ModuleController extends Controller
 
     public function show($module, Request $request)
     {
-        $module = Module::where('uid', $module)->firstOrFail();
+        $module = Cache::get('modules')->where('uid', $module)->first();
+        if(!$module) {
+            abort(404);
+            return;
+        }
         return view('modules.show', ['module' => $module]);
     }
 }
