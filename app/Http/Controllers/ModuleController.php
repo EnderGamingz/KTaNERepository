@@ -154,4 +154,15 @@ class ModuleController extends Controller
 
         return response()->json(202);
     }
+
+    public function destroy($module, ModuleRequest $request)
+    {
+        $module = Cache::get('modules')->where('uid', $module)->first();
+        if(!$module) {
+            abort(404);
+            return;
+        }
+
+        dd($module);
+    }
 }

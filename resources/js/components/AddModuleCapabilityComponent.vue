@@ -48,7 +48,7 @@ export default {
 
             this.$emit("add_module_capability_fetch_data", (data) => {
                 axios.patch(this.url, {
-                    update_scope: 'capability',
+                    scope: 'capability',
                     type: this.type,
                     data: JSON.stringify(data)
                 }).then((e) => {

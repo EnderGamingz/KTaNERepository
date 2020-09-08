@@ -105,6 +105,13 @@
                         <div class="collapsible-header"><i class="material-icons right">keyboard_arrow_down</i> {{ $capability->name }}</div>
                         <div class="collapsible-body p-2">
                             <pre>{{ json_encode($capability->data) }}</pre>
+                            <form action="{{ route('modules.destroy', $module->uid) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" value="capability" name="scope">
+                                <input type="hidden" name="capability" value="{{ $capability->name }}">
+                                <button class="btn btn-flat" type="submit">Remove</button>
+                            </form>
                         </div>
                     </li>
                     @endforeach
