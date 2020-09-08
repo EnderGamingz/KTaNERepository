@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Auth;
 class ModuleRequest extends FormRequest
 {
+    const $scopes = ['capability'];
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -36,7 +37,6 @@ class ModuleRequest extends FormRequest
     public function rules()
     {
         switch($this->route()->getName()) {
-            case 'admin.modules.store':
             case 'modules.store':
                 return [
                     'name' => 'required|string|max:100',
@@ -53,9 +53,17 @@ class ModuleRequest extends FormRequest
                     'links.*' => 'url',
                 ];
             case 'modules.update':
+                // Check if the update scope is valid
+                if(!in_array($this->update_scope, $scopes)) {
+                    abort(403, 'Scope is not supported');
+                    return;
+                }
+
+                // Check if the update scope is capability
                 if($this->update_scope == 'capability') {
+                    // Returns validations for the capability update scope
                     return [
-                        'type' => ['required', 'string', 'max:50', Rule::in(['mystery'])],
+                        'type' => ['required', 'string', 'max:50', Rule::in(['mystery', 'boss'])],
                         'data' => 'required|json',
                     ];
                 }

@@ -78,9 +78,15 @@ pre {
 
 .modal .modal-content {
     padding-bottom: 56px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    overflow: scroll;
 }
 .modal .modal-footer {
     background-color: #303d44;
     position: absolute;
     bottom: 0;
+    z-index: 100;
 }

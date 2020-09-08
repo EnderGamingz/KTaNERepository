@@ -11,6 +11,9 @@
             <div class="mt-4" v-if="type == 'mystery'">
                 <mystery-capability></mystery-capability>
             </div>
+            <div class="mt-4" v-else-if="type == 'boss'">
+                <boss-module-capability></boss-module-capability>
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-flat waves-effect" v-on:click="submitData">Add</button>
@@ -28,7 +31,7 @@ export default {
             capabilities: [],
             availableCapabilities: {
                 mystery: 'Mystery Module Capability',
-                bos: 'Bos Module Integration Capability',
+                boss: 'Boss Module Integration Capability',
                 rule_seed: 'Rule Seed Capability',
                 souvenir: 'Souvenir Capability',
             }
@@ -48,6 +51,8 @@ export default {
                     update_scope: 'capability',
                     type: this.type,
                     data: JSON.stringify(data)
+                }).then((e) => {
+                    window.location.href = this.url;
                 });
             });
         },
