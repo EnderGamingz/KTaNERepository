@@ -105,11 +105,9 @@
                         <div class="collapsible-header"><i class="material-icons right">keyboard_arrow_down</i> {{ $capability->name }}</div>
                         <div class="collapsible-body p-2">
                             <pre>{{ json_encode($capability->data) }}</pre>
-                            <form action="{{ route('modules.destroy', $module->uid) }}" method="POST">
+                            <form action="{{ route('modules.capabilities.destroy', [$module->uid, $capability->name]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" value="capability" name="scope">
-                                <input type="hidden" name="capability" value="{{ $capability->name }}">
                                 <button class="btn btn-flat" type="submit">Remove</button>
                             </form>
                         </div>
@@ -137,7 +135,7 @@
 </div>
 
 @can('update', $module)
-<add-module-capability url="{{ route('modules.update', $module->uid) }}" raw_capabilities='{{ $module->capabilities ? $module->capabilities->pluck('name') : '[]' }}'></add-module-capability>
+<add-module-capability url="{{ route('modules.capabilities.store', $module->uid) }}" raw_capabilities='{{ $module->capabilities ? $module->capabilities->pluck('name') : '[]' }}'></add-module-capability>
 @endcan
 
 @endsection

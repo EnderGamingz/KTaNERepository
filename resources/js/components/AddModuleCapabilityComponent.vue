@@ -5,7 +5,7 @@
             <div class="input-field">
                 <select id="type" v-model="type">
                     <option value="" disabled selected>Select Capability</option>
-                    <option v-for="(cap, index) in availableCapabilities" :key="index" :value="index" v-if="!capabilities.includes(index)">{{ cap }}</option>
+                    <option v-for="(cap, index) in capabilityList" :key="index" :value="index">{{ cap }}</option>
                 </select>
             </div>
             <div class="mt-4" v-if="type == 'mystery'">
@@ -40,6 +40,18 @@ export default {
     beforeMount() {
         this.capabilities = JSON.parse(this.raw_capabilities);
     },
+    computed: {
+        capabilityList() {
+            const newList = Object.entries(this.availableCapabilities).reduce((newlist, [key, val]) => {
+                if(!this.capabilities.includes(key)) {
+                    this.$set(newlist, key, val);
+                }
+
+                return newlist;
+            }, {});
+            return newList;
+        }
+    },
     methods: {
         submitData() {
             if(!this.type) {
@@ -47,12 +59,11 @@ export default {
             }
 
             this.$emit("add_module_capability_fetch_data", (data) => {
-                axios.patch(this.url, {
-                    scope: 'capability',
+                axios.post(this.url, {
                     type: this.type,
                     data: JSON.stringify(data)
                 }).then((e) => {
-                    window.location.href = this.url;
+                    window.location.href = e.data.redirect_url;
                 });
             });
         },

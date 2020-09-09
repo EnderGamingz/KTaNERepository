@@ -3,12 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Auth;
 class ModuleRequest extends FormRequest
 {
-    private $scopes = ['capability'];
-    private $supportedCapabilities = ['mystery', 'boss'];
 
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +23,7 @@ class ModuleRequest extends FormRequest
             // policy to check if the user has access to it which will happen in the controller.
             case 'module.delete':
             case 'modules.update':
-                return $this->user() && $this->scope;
+                return Auth::check();
         }
 
         return $this->user()->hasPermission($permission);
@@ -56,37 +53,9 @@ class ModuleRequest extends FormRequest
                     'links.*' => 'url',
                 ];
             case 'modules.update':
-                // Check if the update scope is valid
-                if(!in_array($this->scope, $this->scopes)) {
-                    abort(403, 'Scope is not supported');
-                    return;
-                }
+                return [
 
-                // Check if the update scope is capability
-                if($this->scope == 'capability') {
-                    // Returns validations for the capability update scope
-                    return [
-                        'type' => ['required', 'string', 'max:50', Rule::in($this->supportedCapabilities)],
-                        'data' => 'required|json',
-                    ];
-                }
-                break;
-            case 'modules.destroy':
-                // Check if the delete scope is valid
-                if(!in_array($this->scope, $this->scopes)) {
-                    dd($this->all());
-                    abort(403, 'Scope is not supported');
-                    return;
-                }
-
-                switch($this->scope) {
-                    // Return validation rules for the capability delete scope
-                    case 'capability':
-                        return [
-                            'capability' => ['required', 'string', 'max:50', Rule::in($this->supportedCapabilities)],
-                        ];
-                }
-                break;
+                ]
             default: 
                 return [
                     //

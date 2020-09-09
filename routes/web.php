@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::resource('/modules', 'ModuleController');
+Route::post('/modules/{module}/capabilities', 'ModuleCapabilityController@store')->name('modules.capabilities.store');
+Route::delete('/modules/{module}/capabilities/{capability}', 'ModuleCapabilityController@destroy')->name('modules.capabilities.destroy');

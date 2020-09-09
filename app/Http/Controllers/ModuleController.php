@@ -138,23 +138,6 @@ class ModuleController extends Controller
         }
     }
 
-    public function updateCapability(Module $module, ModuleRequest $request)
-    {
-        if($module->capabilities->contains('name', $request->type)) {
-            return response()->json(['message' => 'Capability already exists'], 403);
-        }
-
-        ModuleCapability::create([
-            'module_id' => $module->id,
-            'name' => $request->type,
-            'data' => json_decode($request->data)
-        ]);
-
-        Cache::clear('modules');
-
-        return response()->json(202);
-    }
-
     public function destroy($module, ModuleRequest $request)
     {
         $module = Cache::get('modules')->where('uid', $module)->first();

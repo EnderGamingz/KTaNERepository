@@ -18,7 +18,7 @@ class ModulePolicy
      */
     public function viewAny(User $user)
     {
-        
+        return true;
     }
 
     /**
@@ -44,7 +44,7 @@ class ModulePolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
