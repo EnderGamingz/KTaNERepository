@@ -44,11 +44,11 @@
                     <span class="orange-text">Module has been submitted but not approved yet</span>
                     <br>
                     @endif
-                    {{ $module->description }}
-
+                    <p>{{ $module->description }}</p>
+                    <a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ $module->steam_id }}" class="btn btn-flat"><i class="material-icons left">videogame_asset</i>VISIT WORKSHOP</a>
                     @if($module->links)
                     <div class="mt-2">
-                        <h6>Links</h6>
+                        <h6>Additonal Links</h6>
                         @foreach ($module->links as $link)
                             @if($link->name == "github")
                                 <a target="_blank" class="btn btn-floating waves-effect mr-2" href="{{ $link->link }}"><i class="material-icons">code</i></a>
@@ -59,7 +59,6 @@
                         @endforeach
                     </div>
                     @endif
-
                     <div class="row mt-2">
                         <div class="col m6">
                             <h6>Expert Difficulty</h6>
@@ -69,6 +68,10 @@
                             <h6>Defuser Difficulty</h6>
                             {{ $module->difficultyToString($module->defuser_difficulty) }} ({{ $module->defuser_difficulty }})
                         </div>
+                    </div>
+                    <div class="mt-2">
+                        <h6>Module ID</h6>
+                        {{ $module->uid }}
                     </div>
                     @if($module->tags && $module->tags->count() > 0)
                     <div class="mt-2">

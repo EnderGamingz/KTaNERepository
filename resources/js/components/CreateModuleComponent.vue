@@ -26,6 +26,13 @@
                         </div>
                     </div>
                     <div class="input-field">
+                        <label for="steam_id">Steam ID</label>
+                        <input type="number" required id="steam_id" v-model="steamId" min="1">
+                        <div class="helper-text red-text" v-if="errors['steam_id']">
+                            {{ errors['steam_id'] }}
+                        </div>
+                    </div>
+                    <div class="input-field">
                         <label for="credits">Credits</label>
                         <input type="text" v-model="credits" id="credits">
                         <div class="helper-text green-text">
@@ -166,6 +173,7 @@ export default {
         return {
             description: "",
             name: "",
+            steamId: 1,
             uid: "",
             expertDifficulty: 1,
             defuserDifficulty: 1,
@@ -183,7 +191,6 @@ export default {
             avaliableLinks: {
                 github: "GitHub",
                 website: "Website",
-                steam: "Steam Workshop",
             }
         }
     },
@@ -280,8 +287,10 @@ export default {
                 metadata: this.metadata,
                 credits: credits,
                 links: this.links,
+                steam_id: this.steamId
             }).then((e) => {
                 this.requestPending = false;
+                if(e.data.redirect_url) window.location.href = e.data.redirect_url;
             }).catch((e) => {
                 this.requestPending = false;
                 if(e.request.status === 422)

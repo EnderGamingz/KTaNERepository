@@ -50,6 +50,7 @@ class ModuleController extends Controller
         $module = new Module();
         $module->name = $request->name;
         $module->description = $request->description;
+        $module->steam_id = $request->steam_id;
         $module->uid = $uid;
         $module->credits = $request->credits;
         $module->expert_difficulty = $request->expert_difficulty;
@@ -71,8 +72,9 @@ class ModuleController extends Controller
                         'name' => $tagName
                     ]);
 
-                    $module->tags()->attach($existingTags);
+                    $module->tags()->attach($tag);
                 }
+
                 Cache::clear('tags');
             }
         }
@@ -105,7 +107,7 @@ class ModuleController extends Controller
 
         Cache::clear('modules');
 
-        return response()->json($module);
+        return response()->json(['redirect_url' => route('modules.show', $module->uid)]);
     }
 
     public function show($module, Request $request)
@@ -126,16 +128,11 @@ class ModuleController extends Controller
             return;
         }
 
-        if(!Auth::check() || !Auth::check('update', $module)) {
+        if(!$request->user()->can('update', $module)) {
             return;
         }
 
-        switch($request->update_scope) {
-            case 'capability':
-                return $this->updateCapability($module, $request);
-            default:
-                return response()->json(['message' => 'No suitable update scope'], 403);
-        }
+        dd($module);
     }
 
     public function destroy($module, ModuleRequest $request)

@@ -24,7 +24,7 @@ class ModuleRequest extends FormRequest
             case 'module.delete':
             case 'modules.update':
             case 'modules.approve':
-                return Auth::check();
+                    return Auth::check();
         
         }
 
@@ -43,6 +43,7 @@ class ModuleRequest extends FormRequest
                 return [
                     'name' => 'required|string|max:100',
                     'description' => 'required|string|max:255',
+                    'steam_id' => 'required|integer',
                     'credits' => 'nullable|array',
                     'credits.*' => 'string|max:50',
                     'expert_difficulty' => 'required|integer|between:1,100',
@@ -57,7 +58,7 @@ class ModuleRequest extends FormRequest
             case 'modules.update':
                 return [
 
-                ]
+                ];
             default: 
                 return [
                     //

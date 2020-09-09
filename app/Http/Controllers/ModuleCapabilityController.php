@@ -37,7 +37,7 @@ class ModuleCapabilityController extends Controller
         }
 
         // Check if the user has permission to update the module
-        if(!Auth::check('update', $module)) {
+        if(!$request->user()->can('update', $module)) {
             // Return 402 if the user is not permitted
             abort(402);
             return;
@@ -87,7 +87,7 @@ class ModuleCapabilityController extends Controller
         }
 
         // Check if the user has permission to update the module
-        if(!Auth::check('update', $module)) {
+        if(!$request->user()->can('update', $module)) {
             // Return 402 if the user is not permitted
             abort(402);
             return;

@@ -15,6 +15,7 @@ class ModuleResource extends JsonResource
     {
         return [
             'uid' => $this->uid,
+            'steam_id' => $this->steam_id,
             'name' => $this->name,
             'description' => $this->description,
             'defuser_difficulty' => $this->defuser_difficulty,

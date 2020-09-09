@@ -19,6 +19,7 @@ class CreateModulesTable extends Migration
             $table->string('uid', 50)->unique();
             $table->string('name', 100);
             $table->string('description');
+            $table->bigInteger('steam_id');
             $table->json('credits')->nullable();
             $table->integer('expert_difficulty');
             $table->integer('defuser_difficulty');
