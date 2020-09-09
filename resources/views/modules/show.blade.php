@@ -93,7 +93,7 @@
                     @endif
                 </div>
                 <div class="card-action">
-                    <button class="btn btn-flat"><i class="material-icons left">code</i> Generate JSON</button>
+                    <a target="_blank" href="{{ route('api.modules.show', ['module' => $module->uid, 'legacy' => true, 'prettify' => true])}}" class="btn btn-flat"><i class="material-icons left">code</i> Generate JSON</a>
                     <a target="_blank" href="{{ route('api.modules.show', $module->uid) }}" class="btn btn-flat"><i class="material-icons left">api</i> Show API</a>
                 </div>
             </div>

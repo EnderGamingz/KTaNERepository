@@ -90,4 +90,9 @@ class Module extends Model
         if($difficulty <= 100)
             return 'Very Hard';
     }
+
+    public function sortKey()
+    {
+        return strtoupper($this->uid);
+    }
 }
