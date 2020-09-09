@@ -24,6 +24,8 @@ class ModuleResource extends JsonResource
             'publisher' => $this->publisher->username,
             'links' =>  ModuleLinkResource::collection($this->links),
             'tags' => $this->tags ? $this->tags->pluck('name') : [],
+            'metadata' => ModuleMetadataResource::collection($this->metadata),
+            'capabilities' => ModuleCapabilityResource::collection($this->capabilities),
         ];
     }
 }
