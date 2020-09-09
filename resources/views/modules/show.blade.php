@@ -95,6 +95,7 @@
                 <div class="card-action">
                     <a target="_blank" href="{{ route('api.modules.show', ['module' => $module->uid, 'legacy' => true, 'prettify' => true])}}" class="btn btn-flat"><i class="material-icons left">code</i> Generate JSON</a>
                     <a target="_blank" href="{{ route('api.modules.show', $module->uid) }}" class="btn btn-flat"><i class="material-icons left">api</i> Show API</a>
+                    <button class="btn btn-flat right modal-trigger" data-target="metadataModal"><i class="material-icons left">batch_prediction</i> show Meta</button>
                 </div>
             </div>
             @if(($module->capabilities && $module->capabilities->count() > 0 ) || Gate::check('update', $module))
@@ -155,5 +156,29 @@
 @can('update', $module)
 <add-module-capability url="{{ route('modules.capabilities.store', $module->uid) }}" raw_capabilities='{{ $module->capabilities ? $module->capabilities->pluck('name') : '[]' }}'></add-module-capability>
 @endcan
+<div class="modal large" id="metadataModal">
+    <div class="modal-content">
+        <h5>Metadata</h5>
+        <table>
+            <tr>
+                <thead>
+                    <th>Key</th>
+                    <th>Value</th>
+                </thead>
+            </tr>
+            <tbody>
+                @foreach ($module->metadata as $metadata)
+                    <tr>
+                        <td>{{ $metadata->key }}</td>
+                        <td>{{ $metadata->value }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-close btn btn-flat">close</button>
+    </div>
+</div>
 
 @endsection
