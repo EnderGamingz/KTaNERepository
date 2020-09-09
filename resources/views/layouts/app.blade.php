@@ -39,6 +39,9 @@
                     </li>
                     @else
                     <li>
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li>
                         <button class="btn dropdown-trigger" data-target="dropdown-user-desktop">{{ Auth::user()->username }}</button>
                          <ul id="dropdown-user-desktop" class="dropdown-content">
                             {{-- Logout --}}

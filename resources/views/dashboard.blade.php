@@ -4,7 +4,7 @@
 <div class="container">
     <h1>@lang('dashboard.title')</h1>
     <div class="row">
-        <div class="col s12 m8 l6">
+        <div class="col s12 m10 l8 xl6">
             <div class="card">
                 <div class="card-content">
                     <div class="row valing-wrapper">
@@ -19,23 +19,19 @@
                     <ul class="collection mb-0">
                         @forelse ($modules as $module)
                             <li class="collection-item">
-                                <div class="row mb-0">
-                                    <div class="col m8">
+                                <div class="row mb-0 valign-wrapper">
+                                    <div class="col m8 m10">
                                         <b>{{ $module->name }}</b> ({{ $module->uid }}) <br>
-                                        <span class="truncate">{{ $module->description }}</span> 
-                                    </div>
-                                    <div class="col m2">
                                         @if (!$module->approved)
-                                            <div class="chip red">Unapproved</div>
+                                        <span class="red-text">Module's approval is pending</span>
                                         @endif
                                     </div>
-                                    <div class="col m2 right-align">
+                                    <div class="col s4 m2 right-align">
                                         <a href="{{ route('modules.show', $module->uid) }}" class="btn btn-flat">
                                             <i class="material-icons">keyboard_arrow_right</i>
                                         </a>
                                     </div>
                                 </div>
-
                             </li>
                         @empty
                             <li class="collection-item">@lang('modules.list_empty')</li>

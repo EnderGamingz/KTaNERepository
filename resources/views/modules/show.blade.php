@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col m6">
+        <div class="col m12 l6">
             @if(!$module->approved && Auth::user()->can('approve', $module))
             <div class="card-panel">
                 <div class="row mb-0 valign-wrapper">
@@ -22,7 +22,7 @@
                         <form action="{{ route('modules.approve', $module->uid) }}" method="POST">
                             @method('PATCH')
                             @csrf
-                            <button class="btn btn-flat">Approve</button>
+                            <button class="btn btn-flat"><i class="material-icons left">check</i>Approve</button>
                         </form>
                     </div>
                 </div>
@@ -31,10 +31,10 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row mb-0 valign-wrapper">
-                        <div class="col m8">
+                        <div class="col m6">
                             <span class="card-title mb-0">Information</span>
                         </div>
-                        <div class="col m4 right-align">
+                        <div class="col m6 right-align">
                             @can('update', $module)
                             <a href="{{ route('modules.edit', $module->uid) }}" class="btn btn-flat"><i class="material-icons left">edit</i> Edit</a>
                             @endcan
@@ -45,7 +45,7 @@
                     <br>
                     @endif
                     <p>{{ $module->description }}</p>
-                    <a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ $module->steam_id }}" class="btn btn-flat"><i class="material-icons left">videogame_asset</i>VISIT WORKSHOP</a>
+                    <a target="_blank" href="https://steamcommunity.com/sharedfiles/filedetails/?id={{ $module->steam_id }}" class="btn btn-flat my-2"><i class="material-icons left">videogame_asset</i>VISIT WORKSHOP</a>
                     @if($module->links)
                     <div class="mt-2">
                         <h6>Additonal Links</h6>
@@ -95,7 +95,7 @@
                 <div class="card-action">
                     <a target="_blank" href="{{ route('api.modules.show', ['module' => $module->uid, 'legacy' => true, 'prettify' => true])}}" class="btn btn-flat"><i class="material-icons left">code</i> Generate JSON</a>
                     <a target="_blank" href="{{ route('api.modules.show', $module->uid) }}" class="btn btn-flat"><i class="material-icons left">api</i> Show API</a>
-                    <button class="btn btn-flat right modal-trigger" data-target="metadataModal"><i class="material-icons left">batch_prediction</i> show Meta</button>
+                    <button class="btn btn-flat modal-trigger" data-target="metadataModal"><i class="material-icons left">batch_prediction</i> show Meta</button>
                 </div>
             </div>
             @if(($module->capabilities && $module->capabilities->count() > 0 ) || Gate::check('update', $module))
@@ -137,7 +137,7 @@
             </div>
             @endif
         </div>
-        <div class="col m6">
+        <div class="col m12 l6 s12">
             <div class="card">
                 <div class="card-content">
                     <span class="card-title">Manuals</span>
@@ -149,12 +149,19 @@
                     @endif
                 </div>
             </div>
+            @can('update', $module)
+                <div class="card-panel">
+                    <h5 class="mt-0">Management</h5>
+                    <button class="btn btn-flat modal-trigger" data-target="maintainerManagerModal"><i class="material-icons left">group</i> Maintainers</a>
+                </div>
+            @endcan
         </div>
     </div>
 </div>
 
 @can('update', $module)
 <add-module-capability url="{{ route('modules.capabilities.store', $module->uid) }}" raw_capabilities='{{ $module->capabilities ? $module->capabilities->pluck('name') : '[]' }}'></add-module-capability>
+<maintainer-manager url="{{ route('modules.maintainer.store', $module->uid) }}" maintainer_string='{{ $module->maintainer ? $module->maintainer->toJson() : '[]' }}'></maintainer-manager>
 @endcan
 <div class="modal large" id="metadataModal">
     <div class="modal-content">

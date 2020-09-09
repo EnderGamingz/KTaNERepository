@@ -12,6 +12,8 @@ Vue.component('mystery-capability', require('./components/MysteryCapability.vue'
 Vue.component('boss-module-capability', require('./components/BossModuleCapability.vue').default);
 Vue.component('souvenir-capability', require('./components/SouvenirCapability.vue').default);
 Vue.component('rule-seed-capability', require('./components/RuleSeedCapability.vue').default);
+Vue.component('maintainer-manager', require('./components/MaintainerManagerComponent.vue').default);
+
 const app = new Vue({
     el: '#app'
 });
