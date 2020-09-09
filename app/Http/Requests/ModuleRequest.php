@@ -23,7 +23,9 @@ class ModuleRequest extends FormRequest
             // policy to check if the user has access to it which will happen in the controller.
             case 'module.delete':
             case 'modules.update':
+            case 'modules.approve':
                 return Auth::check();
+        
         }
 
         return $this->user()->hasPermission($permission);

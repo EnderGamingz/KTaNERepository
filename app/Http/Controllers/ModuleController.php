@@ -148,4 +148,25 @@ class ModuleController extends Controller
 
         dd($module);
     }
+
+    public function approve($module, ModuleRequest $request)
+    {
+        $module = Cache::get('modules')->where('uid', $module)->first();
+        if(!$module) {
+            abort(404);
+            return;
+        }
+
+        if(!$request->user()->can('approve', $module)) {
+            abort(402);
+            return;
+        }
+
+        $module->approved = true;
+        $module->save();
+
+        Cache::clear('modules');
+
+        return redirect()->route('modules.show', $module->uid);
+    }
 }

@@ -75,4 +75,9 @@ class ModulePolicy
             || ($user && $module->publisher_id == $user->id)
             || ($user->hasPermission('delete.admin.models'));
     }
+
+    public function approve(User $user, Module $module)
+    {
+        return ($user->hasPermission('approve.admin.modules'));
+    }
 }

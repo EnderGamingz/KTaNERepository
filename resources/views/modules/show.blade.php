@@ -12,6 +12,22 @@
     </div>
     <div class="row">
         <div class="col m6">
+            @if(!$module->approved && Auth::user()->can('approve', $module))
+            <div class="card-panel">
+                <div class="row mb-0 valign-wrapper">
+                    <div class="col m6">
+                        Approving this module
+                    </div>
+                    <div class="col m6 right-align">
+                        <form action="{{ route('modules.approve', $module->uid) }}" method="POST">
+                            @method('PATCH')
+                            @csrf
+                            <button class="btn btn-flat">Approve</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="card">
                 <div class="card-content">
                     <div class="row mb-0 valign-wrapper">
@@ -39,9 +55,6 @@
                             @endif
                             @if($link->name == "website")
                                 <a target="_blank" class="btn btn-floating waves-effect mr-2" href="{{ $link->link }}"><i class="material-icons">public</i></a>
-                            @endif
-                            @if($link->name == "steam")
-                                <a target="_blank" class="btn btn-floating waves-effect mr-2" href="{{ $link->link }}"><i class="material-icons">get_app</i></a>
                             @endif
                         @endforeach
                     </div>
@@ -103,13 +116,15 @@
                     @foreach ($module->capabilities as $capability)
                     <li>
                         <div class="collapsible-header"><i class="material-icons right">keyboard_arrow_down</i> {{ $capability->name }}</div>
-                        <div class="collapsible-body p-2">
+                        <div class="collapsible-body pt-0">
                             <pre>{{ json_encode($capability->data) }}</pre>
+                            @can('update', $module)
                             <form action="{{ route('modules.capabilities.destroy', [$module->uid, $capability->name]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-flat" type="submit">Remove</button>
                             </form>
+                            @endif
                         </div>
                     </li>
                     @endforeach
