@@ -11,7 +11,7 @@ Vue.component('add-module-capability', require('./components/AddModuleCapability
 Vue.component('mystery-capability', require('./components/MysteryCapability.vue').default);
 Vue.component('boss-module-capability', require('./components/BossModuleCapability.vue').default);
 Vue.component('souvenir-capability', require('./components/SouvenirCapability.vue').default);
-
+Vue.component('rule-seed-capability', require('./components/RuleSeedCapability.vue').default);
 const app = new Vue({
     el: '#app'
 });

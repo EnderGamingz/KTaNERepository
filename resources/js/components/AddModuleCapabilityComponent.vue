@@ -17,6 +17,9 @@
             <div class="mt-4" v-else-if="type == 'souvenir'">
                 <souvenir-capability></souvenir-capability>
             </div>
+            <div class="mt-4" v-else-if="type == 'rule_seed'">
+                <rule-seed-capability></rule-seed-capability>
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-flat waves-effect" v-on:click="submitData">Add</button>
