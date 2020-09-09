@@ -14,6 +14,9 @@
             <div class="mt-4" v-else-if="type == 'boss'">
                 <boss-module-capability></boss-module-capability>
             </div>
+            <div class="mt-4" v-else-if="type == 'souvenir'">
+                <souvenir-capability></souvenir-capability>
+            </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-flat waves-effect" v-on:click="submitData">Add</button>

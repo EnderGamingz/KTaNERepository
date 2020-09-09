@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 
 class ModuleCapabilityRequest extends FormRequest
 {
-    private $supportedCapabilities = ['mystery', 'boss'];
+    private $supportedCapabilities = ['mystery', 'boss', 'souvenir'];
 
     /**
      * Determine if the user is authorized to make this request.
