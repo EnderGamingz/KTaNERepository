@@ -4,12 +4,12 @@
         <h5>Module Maintainer</h5>
         <h6>Add Maintainer</h6>
         <div class="row valign-wrapper">
-            <div class="col m10">
+            <div class="pl-0 col m10 input-field mt-0">
                 <label for="email">Email</label>
                 <input type="email" id="email" v-model="email">
             </div>
-            <div class="col m2">
-                <button class="btn btn-flat"><i class="material-icons">add</i></button>
+            <div class="col m2 center-align">
+                <button class="btn btn-flat" v-on:click="addMaintainer"><i class="material-icons">add</i></button>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    props: ["post_url", "maintainer_string"],
+    props: ["url", "maintainer_string"],
     data: function() {
         return {
             maintainer: [],
@@ -30,6 +30,21 @@ export default {
     },
     beforeMount() {
         this.maintainer = JSON.parse(this.maintainer_string);
+    },
+    methods: {
+        addMaintainer() {
+            if(!this.email)
+                return;
+            
+            axios.post(this.url, {
+                email: this.email
+            }).then((e) => {
+                this.maintainer.push(e.data.username);
+            }).catch((e) => {
+                console.log(e);
+                // M.toast({html: e.response});
+            })
+        }
     }
 }
 </script>
