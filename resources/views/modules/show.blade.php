@@ -140,7 +140,17 @@
         <div class="col m12 l6 s12">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title">Manuals</span>
+                    <div class="row valign-wrapper">
+                        <div class="col m7">
+                            <span class="card-title mb-0">Manuals</span>
+                        </div>
+                        <div class="col m5 right-align">
+                            @can('update', $module)
+                            <button class="btn btn-flat modal-trigger" data-target="addManualModal"><i class="material-icons left">cloud_upload</i> UPLOAD</button>
+                            @endcan
+                        </div>
+                    </div>
+                    
                     @if($module->manuals && $module->manuals->count() > 0)
                     @else
                     <div class="red-text">
@@ -162,6 +172,7 @@
 @can('update', $module)
 <add-module-capability url="{{ route('modules.capabilities.store', $module->uid) }}" raw_capabilities='{{ $module->capabilities ? $module->capabilities->pluck('name') : '[]' }}'></add-module-capability>
 <maintainer-manager url="{{ route('modules.maintainer.store', $module->uid) }}" maintainer_string='{{ $module->maintainer ? $module->maintainer->pluck('username')->toJson() : '[]' }}'></maintainer-manager>
+<add-module-manual url="{{ route('modules.manuals.store', $module->uid) }}"></add-module-manual>
 @endcan
 <div class="modal large" id="metadataModal">
     <div class="modal-content">

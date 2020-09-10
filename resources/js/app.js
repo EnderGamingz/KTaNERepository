@@ -8,6 +8,7 @@ $(document).ready(() => {
 
 Vue.component('create-module', require('./components/CreateModuleComponent.vue').default);
 Vue.component('add-module-capability', require('./components/AddModuleCapabilityComponent.vue').default);
+Vue.component('add-module-manual', require('./components/AddModuleManualComponent.vue').default);
 Vue.component('mystery-capability', require('./components/MysteryCapability.vue').default);
 Vue.component('boss-module-capability', require('./components/BossModuleCapability.vue').default);
 Vue.component('souvenir-capability', require('./components/SouvenirCapability.vue').default);

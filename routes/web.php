@@ -29,3 +29,5 @@ Route::delete('/modules/{module}/capabilities/{capability}', 'ModuleCapabilityCo
 
 Route::post('/modules/{module}/maintainers', 'ModuleMaintainerController@store')->name('modules.maintainer.store');
 Route::delete('/modules/{module}/maintainers/{username}', 'ModuleMaintainerController@destroy')->name('modules.maintainer.destroy');
+
+Route::post('/modules/{module}/manuals', 'ModuleManualController@store')->name('modules.manuals.store');
