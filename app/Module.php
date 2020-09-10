@@ -18,7 +18,7 @@ class Module extends Model
      */
     public function maintainer()
     {
-        return $this->belongsTo(User::class, 'module_maintainer');
+        return $this->belongsToMany(User::class, 'module_maintainer');
     }
 
     /**

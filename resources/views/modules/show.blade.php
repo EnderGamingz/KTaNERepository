@@ -85,10 +85,10 @@
                         <h6>Publisher</h6>
                         <i>{{ $module->publisher->username }}</i>
                     </div>
-                    @if($module->maintainer)
+                    @if($module->maintainer->count() > 0)
                     <div class="mt-2">
                         <h6>Maintainer</h6>
-                        {{ implode(',', $module->maintainer->pluck('username')) }}
+                        {{ implode(',', $module->maintainer->pluck('username')->toArray()) }}
                     </div>
                     @endif
                 </div>
@@ -161,7 +161,7 @@
 
 @can('update', $module)
 <add-module-capability url="{{ route('modules.capabilities.store', $module->uid) }}" raw_capabilities='{{ $module->capabilities ? $module->capabilities->pluck('name') : '[]' }}'></add-module-capability>
-<maintainer-manager url="{{ route('modules.maintainer.store', $module->uid) }}" maintainer_string='{{ $module->maintainer ? $module->maintainer->toJson() : '[]' }}'></maintainer-manager>
+<maintainer-manager url="{{ route('modules.maintainer.store', $module->uid) }}" maintainer_string='{{ $module->maintainer ? $module->maintainer->pluck('username')->toJson() : '[]' }}'></maintainer-manager>
 @endcan
 <div class="modal large" id="metadataModal">
     <div class="modal-content">
