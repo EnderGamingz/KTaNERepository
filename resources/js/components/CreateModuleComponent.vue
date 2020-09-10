@@ -107,7 +107,7 @@
                             <span class="card-title">Metadata</span>
                         </div>
                         <div class="col m4 right-align">
-                            <button class="btn btn-floating btn-sm"><i class="material-icons">help</i></button>
+                            <button class="btn btn-floating btn-sm modal-trigger" data-target="metadataHelpModal"><i class="material-icons">help</i></button>
                         </div>
                     </div>
                     <div class="row">
@@ -161,6 +161,22 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal large" id="metadataHelpModal">
+        <div class="modal-content">
+            <h5 class="mt-0">Metadata</h5>
+            <p>
+            Metadata is used to support the legacy JSON Format without having uneccesary columns in our database. <br>
+            <br>
+            It also can be used to add extra data to your module and then fetch it over our API to get more functionality out of your module.
+            </p>
+            In order to fully support the legacy JSON Format, the following Metadata entries can be used: <br>
+            <code>Symbol</code> - For the Symbolic Representation on <a href="https://ktane.timwi.de/">ktane.twimwi.de</a> <br>
+            <code>Type</code>  - Should be "Regular", "Needy" or "Widget"
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-flat modal-close">close</button>
         </div>
     </div>
 </div>

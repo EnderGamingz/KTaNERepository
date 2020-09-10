@@ -23,7 +23,7 @@ class ModuleController extends Controller
 
         $module = Cache::get('modules')->where('uid', $module)->first();
         // Check if the fetched module exists and if it is public
-        if(!$module || !$module->public || $module->approved) {
+        if(!$module || !$module->approved) {
             return response()->json(['message' => 'Could not find module'], 404);
         }
 
@@ -59,9 +59,15 @@ class ModuleController extends Controller
             "SteamID" => $module->steam_id,
             "Published" => $module->created_at->format('yy-m-d'),
             "Author" => $module->publisher->username,
-            "ModuleId" => $module->uid,
-            "SortKey" => $module->sortKey()
+            "ModuleID" => $module->uid,
+            "SortKey" => $module->sortKey(),
+            "Origin" => 'Mods', // It will always return mods
         ];
+
+        $sourceUrl = $module->links->where('name', 'github')->first();
+        if($sourceUrl) {
+            $data["SourceUrl"] = $sourceUrl->link;
+        }
 
         // Building the metadata array
         $metadata = $module->metadata->pluck('value', 'key')->toArray();
