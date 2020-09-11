@@ -55,11 +55,11 @@ class ModuleManualController extends Controller
         }
 
         // Temporary storing the files
-        $directoryName = 'temp/'.sha1($module->id.$request->type.$request->language.microtime(false));
-        Storage::makeDirectory($directoryName);
+        $directoryName = sha1($module->id.$request->type.$request->language.microtime(false));
+        Storage::makeDirectory('temp/' . $directoryName);
         foreach($files as $file) {
             $fileName = base64_encode($file->getClientOriginalName());
-            $file->storeAs($directoryName, $fileName);
+            $file->storeAs('temp/' . $directoryName, $fileName);
         }
 
         $job = ModuleManualJob::dispatch($module, $directoryName);

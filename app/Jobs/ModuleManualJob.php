@@ -24,6 +24,7 @@ class ModuleManualJob implements ShouldQueue
                             ];
     private $module;
     private $dirName;
+    private $path;
     private $useableFiles;
 
     /**
@@ -35,6 +36,7 @@ class ModuleManualJob implements ShouldQueue
     {
         $this->module = $module;
         $this->dirName = $dirName;
+        $this->path = 'temp/' . $dirName;
     }
 
     /**
@@ -44,13 +46,13 @@ class ModuleManualJob implements ShouldQueue
      */
     public function handle()
     {
-        $files = Storage::files($this->dirName);
+        $files = Storage::files($this->path);
         
         // Filter out files
         $this->useableFiles = collect();
         foreach ($files as $index => $file) {
             
-            $fileName = base64_decode(str_replace($this->dirName.'/', '', $file));
+            $fileName = base64_decode(str_replace($this->path.'/', '', $file));
             if(in_array($fileName, $this->ignoredFiles)) {
                 Storage::delete($file);
                 unset($files[$index]);
@@ -80,7 +82,62 @@ class ModuleManualJob implements ShouldQueue
         $dom->loadStr($contents);
 
         $this->embedImages($dom);
+        $this->changeLinks($dom);
+        $this->changeScripts($dom);
+
         dd(strval($dom));
+    }
+
+    private function changeScripts($dom) {
+        $scriptTags = $dom->find('script');
+
+        foreach ($scriptTags as $tag) {
+            $attr = $tag->getAttribute('href');
+            if(!$attr) {
+                continue;
+            }
+
+            $referenceName = $this->getReferenceName($attr);
+            if(in_array($referenceName, $this->ignoredFiles)) {
+                $tag->delete();
+            }
+        }
+
+        $elements = $dom->find('body');
+        if(sizeof($elements) == 0) {
+            return;
+        }
+
+        $body = $elements[0];
+
+        $scriptTag = new TextNode('<script src="/js/manual/js"></script>');
+        $scriptTag->setParent($body);
+    }
+
+    private function changeLinks($dom) {
+        $linkTags = $dom->find('link');
+
+        foreach ($linkTags as $tag) {
+            $attr = $tag->getAttribute('href');
+            if(!$attr) {
+                continue;
+            }
+
+            $referenceName = $this->getReferenceName($attr);
+            if(in_array($referenceName, $this->ignoredFiles)) {
+                $tag->delete();
+            }
+        }
+
+        $elements = $dom->find('head');
+        if(sizeof($elements) == 0) {
+            return;
+        }
+
+        $head = $elements[0];
+
+        $manualCssLink = new TextNode('<link rel="stylesheet" type="text/css" href="/css/manual.css">');
+        $manualCssLink->setParent($head);
     }
 
     private function embedImages($dom) {
@@ -101,25 +158,42 @@ class ModuleManualJob implements ShouldQueue
             // Removing the src attribute
             $tag->removeAttribute('src');
 
+            $referenceContents = Storage::get($this->useableFiles[$srcReference]);
             $extension = $this->getExtension($srcReference);
             $referenceFileSize = Storage::size($this->useableFiles[$srcReference]);
             if($referenceFileSize > $this->embedableThreashold) {
-                // TODO Handle embedables
+                $fileName = sha1($srcReference) . '.' . $extension;
+                // Check if the image does not already exist in the public directory
+                if(!Storage::disk('public')->has($this->dirName . '/'. $fileName)) {
+                    // Copy the image to the public directory
+                    Storage::disk('public')->put($this->dirName . '/' . $fileName, $referenceContents);
+                }
 
+                // Replace the src with the file name
+                $tag->setAttribute('src', $fileName);
                 continue;
             }
 
-            $referenceContents = Storage::get($this->useableFiles[$srcReference]);
             if($extension == 'svg') {
-                // Embedding SVG
+                // Createing empty svg node
                 $svgNode = new TextNode('<svg></svg>');
+                // Coyping the attributes
                 $this->copyAttributes($tag, $svgNode);
+                // Cleaning up the file contents
+                $referenceContents = preg_replace( "/\r|\n/", "", $referenceContents);
+                // Set text as the contents of the cleanred up file contents
                 $svgNode->setText($referenceContents);
+                // Replace the tag with the new tag
                 $tag->getParent()->replaceChild($tag->id(), $svgNode);
+            } else if($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+                // Encode contents in base64 of image
+                $encodedContents = base64_encode($referenceContents);
+                // Set the source attribute to the generated base64 content
+                $tag->setAttribute('src', 'data:image/' . $extension . ';base64, ' . $encodedContents);
             }
         }
     }
-    
+
     private function copyAttributes($original, $target) {
         foreach ($original->getAttributes() as $key => $attr) {
             $target->setAttribute($key, $attr);
