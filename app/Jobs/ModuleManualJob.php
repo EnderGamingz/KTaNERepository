@@ -12,6 +12,9 @@ use Str;
 use PHPHtmlParser\Dom;
 use PHPHtmlParser\Options;
 use PHPHtmlParser\Dom\Node\TextNode;
+use App\ModuleManual;
+use Cache;
+
 class ModuleManualJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -22,9 +25,9 @@ class ModuleManualJob implements ShouldQueue
                              'web-background.jpg', 'page-bg-noise-01.png', 'page-bg-noise-02.png', 'page-bg-noise-03.png', 
                              'page-bg-noise-04.png', 'page-bg-noise-05.png', 'page-bg-noise-06.png', 'page-bg-noise-07.png'
                             ];
-    private $module;
     private $dirName;
     private $path;
+    private $moduleManual;
     private $useableFiles;
 
     /**
@@ -32,9 +35,9 @@ class ModuleManualJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($module, $dirName)
+    public function __construct(ModuleManual $moduleManual, $dirName)
     {
-        $this->module = $module;
+        $this->moduleManual = $moduleManual;
         $this->dirName = $dirName;
         $this->path = 'temp/' . $dirName;
     }
@@ -73,19 +76,40 @@ class ModuleManualJob implements ShouldQueue
         // Get's the contens of the HTML File
         $contents = Storage::get($htmlFile);
 
+        // Initialize a new dom parser instance
+        // and set the options
         $dom = new Dom;
         $dom->setOptions((new Options())
             ->setcleanupInput(true)
             ->setpreserveLineBreaks(false)
         );
 
+        // Load the dom with the html file contents
         $dom->loadStr($contents);
 
+        // Try to embed images
         $this->embedImages($dom);
+        // Try to replace links
         $this->changeLinks($dom);
+        // Try to replace and delte referenced scripts
         $this->changeScripts($dom);
 
-        dd(strval($dom));
+        $indexFile = $this->dirName . '/' . sha1($htmlFile) . '.html';
+        // Saves the html file to disk
+        Storage::disk('public')->put($indexFile, $dom);
+
+        // Updating the module with the information
+        $this->moduleManual->update([
+            // 'processes' => true,
+            'source_path' => $indexFile
+        ]);
+
+        $this->cleanup();
+    }
+
+    private function cleanup() {
+        Storage::deleteDirectory($this->path);
+        Cache::clear('modules');
     }
 
     private function changeScripts($dom) {

@@ -31,3 +31,4 @@ Route::post('/modules/{module}/maintainers', 'ModuleMaintainerController@store')
 Route::delete('/modules/{module}/maintainers/{username}', 'ModuleMaintainerController@destroy')->name('modules.maintainer.destroy');
 
 Route::post('/modules/{module}/manuals', 'ModuleManualController@store')->name('modules.manuals.store');
+Route::get('/modules/{module}/manuals', 'ModuleManualController@show')->name('modules.manuals.show');

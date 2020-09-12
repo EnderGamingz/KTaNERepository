@@ -152,6 +152,12 @@
                     </div>
                     
                     @if($module->manuals && $module->manuals->count() > 0)
+                    <ul class="collection">
+                        @foreach ($module->manuals as $manual)
+                            <pre>{{ $manual }}</pre>
+                            <a href="{{ route('modules.manuals.show', ['module' => $module->uid, 'lang' => $manual->language, 'type' => $manual->type])}}">Show</a>
+                        @endforeach
+                    </ul>
                     @else
                     <div class="red-text">
                         No manuals avaliable

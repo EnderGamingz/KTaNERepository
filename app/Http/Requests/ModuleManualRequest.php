@@ -26,11 +26,21 @@ class ModuleManualRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'language' => 'required|string|max:25',
-            'type' => ['nullable', 'string', 'max:25', Rule::in($this->acceptedTypes)],
-            'files' => 'required|array',
-            'files'.'*' => 'required|file|max:10000', // Maximum 10 megabyte 
-        ];
+        switch($this->method()) {
+            case 'POST':
+                return [
+                    'language' => 'required|string|max:25',
+                    'type' => ['nullable', 'string', 'max:25', Rule::in($this->acceptedTypes)],
+                    'files' => 'required|array',
+                    'files'.'*' => 'required|file|max:10000', // Maximum 10 megabyte 
+                ];
+            case 'GET':
+                return [
+                    'lang' => 'nullable|string|max:25',
+                    'type' => 'nullable|string|max:25',
+                    'id' => 'nullable|integer',
+                ];
+        }
+
     }
 }
