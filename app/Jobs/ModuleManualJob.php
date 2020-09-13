@@ -12,6 +12,8 @@ use Str;
 use PHPHtmlParser\Dom;
 use PHPHtmlParser\Options;
 use PHPHtmlParser\Dom\Node\TextNode;
+use PHPHtmlParser\Dom\Node\HtmlNode;
+use PHPHtmlParser\Dom\Tag;
 use App\ModuleManual;
 use Cache;
 
@@ -82,6 +84,8 @@ class ModuleManualJob implements ShouldQueue
         $dom->setOptions((new Options())
             ->setcleanupInput(true)
             ->setpreserveLineBreaks(false)
+            ->setremoveSmartyScripts(false)
+            ->setremoveScripts(false)
         );
 
         // Load the dom with the html file contents
@@ -134,7 +138,7 @@ class ModuleManualJob implements ShouldQueue
 
         $body = $elements[0];
 
-        $scriptTag = new TextNode('<script src="/js/manual/js"></script>');
+        $scriptTag = new TextNode('<script src="/js/manual.js"></script>');
         $scriptTag->setParent($body);
     }
 
@@ -199,16 +203,25 @@ class ModuleManualJob implements ShouldQueue
             }
 
             if($extension == 'svg') {
-                // Createing empty svg node
-                $svgNode = new TextNode('<svg></svg>');
-                // Coyping the attributes
-                $this->copyAttributes($tag, $svgNode);
                 // Cleaning up the file contents
                 $referenceContents = preg_replace( "/\r|\n/", "", $referenceContents);
-                // Set text as the contents of the cleanred up file contents
-                $svgNode->setText($referenceContents);
-                // Replace the tag with the new tag
-                $tag->getParent()->replaceChild($tag->id(), $svgNode);
+
+                // $svgTag = new Tag('svg');
+                
+                // Createing empty svg node
+                $svgTag = new Tag('svg');
+                $this->copyAttributes($tag, $svgTag);
+                
+                $svgNode = new TextNode('test');
+                $svgNode->setTag($svgTag);
+                $this->copyAttributes($tag, $svgNode);
+                $tag->parent->replaceChild($tag->id(), $svgNode);
+                
+                // Coyping the attributes
+                // $tag->parent->replaceChild($tag->id(), $svgNode);
+                
+                // dd(strval($dom));
+                dd(strval($dom));
             } else if($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
                 // Encode contents in base64 of image
                 $encodedContents = base64_encode($referenceContents);

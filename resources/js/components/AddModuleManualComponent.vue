@@ -22,6 +22,10 @@
             </select>
             <label for="type">Type</label>
         </div>
+        <div class="input-field">
+            <label for="credits">Credits</label>
+            <input type="text" name="credits" id="credits" v-model="credits">
+        </div>
         <h6>File Upload</h6>
         <div class="file-field input-field mt-4">
             <div class="btn">
@@ -49,6 +53,7 @@ export default {
             language: "English",
             files: [],
             type: "",
+            credits: "",
         }
     },
     methods: {
@@ -64,6 +69,12 @@ export default {
 
             formData.append('type', this.type);
             formData.append('language', this.language);
+
+            if(this.credits) {
+                this.credits.split(',').forEach((v, k) => {
+                        formData.append('credits['+ k + ']', v);
+                });
+            }
 
             axios.post(this.url, formData).then((e) => {
                 if(e.data.redirect_url)

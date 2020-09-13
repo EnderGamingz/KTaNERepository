@@ -21,6 +21,8 @@ class CreateModuleManualsTable extends Migration
             $table->string('pdf_path')->nullable();
             $table->string('source_path')->nullable();
             $table->boolean('allow_js')->default(false);
+            $table->boolean('processed')->default(false);
+            $table->json('credits')->nullable();
             $table->timestamps();
             
             $table->foreign('module_id')

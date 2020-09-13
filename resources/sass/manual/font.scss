@@ -1,0 +1,206 @@
+$baseURL: "https://ktane.timwi.de/HTML";
+
+/* Primary font used by manuals */
+@font-face {
+    font-family: 'Special Elite';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Special Elite'), local('SpecialElite-Regular'), url(#{$baseURL}/font/SpecialElite.ttf);
+}
+
+/* Primary font used by main page, FAQs and puzzles */
+@font-face {
+    font-family: 'Trebuchet MS';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Trebuchet MS'), local('Trebuchet'), url(#{$baseURL}/font/trebuc.ttf);
+}
+
+@font-face {
+    font-family: 'Trebuchet MS';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Trebuchet MS Bold'), local('Trebuchet Bold'), url(#{$baseURL}/font/trebucbd.ttf);
+}
+
+@font-face {
+    font-family: 'Trebuchet MS';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Trebuchet MS Italic'), local('Trebuchet Italic'), url(#{$baseURL}/font/trebucit.ttf);
+}
+
+@font-face {
+    font-family: 'Trebuchet MS';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Trebuchet MS Bold Italic'), local('Trebuchet Bold Italic'), url(#{$baseURL}/font/trebucbi.ttf);
+}
+
+/* Big fat font used by headers on puzzles and FAQs */
+@font-face {
+    font-family: 'DayPosterBlack';
+    src: local('DayPosterBlack'), url(#{$baseURL}/font/DayPosterBlack.ttf);
+}
+
+/* Used by the Periodic Table of Modules */
+@font-face {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Georgia'), url(#{$baseURL}/font/georgia.ttf);
+}
+
+@font-face {
+    font-family: 'Georgia';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Georgia Bold'), url(#{$baseURL}/font/georgiab.ttf);
+}
+
+@font-face {
+    font-family: 'Georgia';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Georgia Italic'), url(#{$baseURL}/font/georgiai.ttf);
+}
+
+@font-face {
+    font-family: 'Georgia';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Georgia Bold Italic'), url(#{$baseURL}/font/georgiaz.ttf);
+}
+
+/* Used by the Periodic Table of Modules, Lion’s Share and the London Underground optimized sheet */
+@font-face {
+    font-family: 'Agency FB';
+    src: url('#{$baseURL}/font/Agency FB.ttf');
+}
+
+@font-face {
+    font-family: 'Agency FB';
+    font-weight: bold;
+    src: url('#{$baseURL}/font/Agency FB Bold.ttf');
+}
+
+/* Round symbols; used by Symbolic Coordinates, The Cube, Lightspeed and Reverse Morse */
+@font-face {
+    font-family: 'KRA';
+    src: url(#{$baseURL}/font/KR_A_Round.ttf);
+}
+
+/* Shikaku */
+@font-face {
+    font-family: 'Shikaku';
+    src: url('#{$baseURL}/font/Shikaku.ttf');
+}
+
+/* Heiroglyphics */
+@font-face {
+    font-family: 'Heiroglyphics';
+    src: url('#{$baseURL}/font/hieroglyphics.ttf');
+}
+
+/* Spinning Buttons */
+@font-face {
+    font-family: 'cyrillic';
+    src: url('#{$baseURL}/font/cyrillic.ttf');
+}
+
+/* Shapes And Bombs */
+@font-face {
+    font-family: 'Handwritten';
+    src: url('#{$baseURL}/font/Handwritten.ttf');
+}
+
+/* SYNC-125 [3] */
+@font-face {
+    font-family: 'SCP';
+    src: url('#{$baseURL}/font/scp-v01.ttf');
+}
+
+/* The Necronomicon */
+@font-face {
+    font-family: 'rlyehian';
+    src: url('#{$baseURL}/font/Rlyehian.ttf');
+}
+
+/* Audio Keypad */
+@font-face {
+    font-family: 'AudioKeypadFont';
+    font-style: normal;
+    src: url(#{$baseURL}/font/AudioKeypadFont.ttf);
+}
+
+/*** LOGFILE ANALYZER ***/
+
+/* Serial number */
+@font-face {
+    font-family: 'Anonymous Pro';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Anonymous Pro'), url(#{$baseURL}/font/AnonymousPro-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Anonymous Pro';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Anonymous Pro Bold'), url(#{$baseURL}/font/AnonymousPro-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Anonymous Pro';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Anonymous Pro Italic'), url(#{$baseURL}/font/AnonymousPro-Italic.ttf);
+}
+
+@font-face {
+    font-family: 'Anonymous Pro';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Anonymous Pro Bold Italic'), url(#{$baseURL}/font/AnonymousPro-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'LCDClock';
+    src: local('LCD'), url(#{$baseURL}/font/LCDClock.ttf);
+}
+
+@font-face {
+    font-family: 'pokemon-font';
+    src: url(#{$baseURL}/font/pokemon-font.woff2);
+}
+
+/* Indicators */
+@font-face {
+    font-family: 'Ostrich';
+    src: local('Ostrich Sans'), local('Ostrich'), url(#{$baseURL}/font/OstrichSans-Heavy_90.otf);
+}
+
+/* Dragon shouts in Skyrim */
+@font-face {
+    font-family: 'DragonAlphabet';
+    src: url(#{$baseURL}/font/dragon_alphabet.ttf);
+}
+
+/* Standard Galactic Alphabet in Odd One Out */
+@font-face {
+    font-family: 'SGA';
+    src: url(#{$baseURL}/font/SGA.ttf);
+}
+
+@font-face {
+    font-family: "Arrows";
+    src: url(#{$baseURL}/font/Arrows.ttf);
+}
+
+/* Stupid in The Great Void */
+@font-face {
+    font-family: 'stupid';
+    font-style: normal;
+    font-weight: 400;
+    src: url(#{$baseURL}/font/stupid.ttf);
+}

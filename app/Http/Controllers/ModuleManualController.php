@@ -9,6 +9,8 @@ use Cache;
 use App\Jobs\ModuleManualJob;
 use Storage;
 use Str;
+use Response;
+
 class ModuleManualController extends Controller
 {
     /**
@@ -53,7 +55,9 @@ class ModuleManualController extends Controller
             return;
         }
 
-        return view('modules.manuals.show', ['module' => $module, 'manual' => $manual]);
+
+        return response(view('modules.manuals.show', ['module' => $module, 'manual' => $manual]))
+               ->header('SameSite', 'Strict');
     }
 
     public function store($module, ModuleManualRequest $request)

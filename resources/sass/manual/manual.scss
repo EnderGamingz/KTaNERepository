@@ -1,8 +1,9 @@
-// Let the ktane.timwi.de repository handle the fonts
-@import url('https://ktane.timwi.de/HTML/css/font.css');
-
 // Importing and appending normalize file
 @import "./normalize.scss";
+
+// Importing the font file
+@import "./font.scss";
+
 /*
 *  Some useful numbers...
 *
@@ -419,9 +420,6 @@ Section-specific
 
 .bomb-diagram-side {
     width: 5.3895625em; /* Hardcoding for IE */
-}
-
-.diagram-label {
 }
 
 .bomb-diagram img {
@@ -934,14 +932,7 @@ Inlined to avoid required HTTP connection: h5bp.com/r
 ========================================================================== */
 
 @media print {
-    /* Removed all this stuff because we'll be aiming to make everything deliberate for print */
-    * {
-        /*background: transparent !important;
-        color: #000 !important;*/ /* Black prints faster: h5bp.com/s */
-        /*box-shadow: none !important;
-        text-shadow: none !important;*/
-    }
-    
+
     a,
     a:visited {
         text-decoration: underline;

@@ -31,6 +31,8 @@ class ModuleManualRequest extends FormRequest
                 return [
                     'language' => 'required|string|max:25',
                     'type' => ['nullable', 'string', 'max:25', Rule::in($this->acceptedTypes)],
+                    'credits' => 'nullable|array',
+                    'credits.*' => 'string|max:50',
                     'files' => 'required|array',
                     'files'.'*' => 'required|file|max:10000', // Maximum 10 megabyte 
                 ];
